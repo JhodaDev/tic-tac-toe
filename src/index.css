@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* crear una animacion para el modal que salga de abajo del todo */
+
+.modal {
+  @apply bg-cells w-full flex flex-col items-center py-10 ;
+  animation: modal 0.3s ease-out;
+}
+
+@keyframes modal {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
