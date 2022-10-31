@@ -1,36 +1,29 @@
 import { useEffect, useState } from 'react'
-import { useChangeTurn } from './useChangeTurn'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateCell } from '../redux/slices/boardSlice'
+import { changeTurn } from '../redux/slices/playerSlice'
+// import { useChangeTurn } from './useChangeTurn'
 import { useValidateWinner } from './useValidateWinner'
 
 export const useBoard = ({ rows, cols }) => {
+  const dispatch = useDispatch()
+  const { player, board } = useSelector((state) => state)
+
   const [countTurn, setCountTurn] = useState(0)
 
-  const [board, setBoard] = useState(() => {
-    return Array(rows).fill().map(() => Array(cols).fill(null))
-  })
-
-  const [turn, changeTurn] = useChangeTurn()
-  const [checkWinner, isWinner] = useValidateWinner(board, rows, cols)
+  const [checkWinner] = useValidateWinner(board.board, rows, cols)
 
   const changeCell = (row, col) => {
+    // validar el modo de juego si es single o cpu
+
     setCountTurn(countTurn + 1)
-    const newBoard = [...board]
-
-    if (newBoard[row][col] !== null) return
-
-    setBoard(() => {
-      newBoard[row][col] = turn
-      return newBoard
-    })
-
-    changeTurn()
+    dispatch(updateCell({ row, col, value: player.turn }))
+    dispatch(changeTurn())
   }
 
   useEffect(() => {
-    if (countTurn > 4) {
-      checkWinner()
-    }
-  }, [countTurn, isWinner])
+    if (countTurn > 4) checkWinner()
+  }, [countTurn])
 
-  return [board, changeCell, turn, isWinner]
+  return [changeCell]
 }

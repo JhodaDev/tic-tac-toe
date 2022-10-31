@@ -9,6 +9,15 @@
   animation: modal 0.3s ease-out;
 }
 
+.hidemodal {
+  @apply bg-cells w-full items-center py-10 hidden;
+  animation: modal 0.3s ease-out;
+}
+
+.acitve{
+  @apply bg-select;
+}
+
 @keyframes modal {
   from {
     transform: translateY(100%);

@@ -1,10 +1,12 @@
-import { Board } from './components/Board/Board'
+import { Provider } from 'react-redux'
+import { store } from './redux/store'
+import { Main } from './routes/Main'
 
 function App () {
   return (
-    <div className="bg-body h-screen flex items-center justify-center">
-      <Board cols={3} rows={3} />
-    </div>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   )
 }
 

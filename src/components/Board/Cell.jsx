@@ -1,11 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
+
 import { Circle } from '../Icons/Circle'
-
-import { Circlefill } from '../Icons/Circlefill'
 import { Close } from '../Icons/Close'
-import { CloseFill } from '../Icons/CloseFill'
 
-export const Cell = ({ turn, coordinates, update, value }) => {
+export const Cell = ({ turn, coordinates, update, value, round }) => {
   const [isVisible, setIsVisible] = useState(false)
 
   const refElement = useRef(null)
@@ -15,19 +13,23 @@ export const Cell = ({ turn, coordinates, update, value }) => {
     setIsVisible(true)
   }
 
+  useEffect(() => {
+    setIsVisible(false)
+  }, [round])
+
   return (
-    <div className='w-24 h-24 bg-cells rounded-lg shadow-lg cursor-pointer' onClick={handleClick}>
+    <div className='w-24 h-24 md:w-36 md:h-36 bg-cells rounded-lg shadow-lg cursor-pointer' onClick={handleClick}>
       <div className={`w-full h-full flex justify-center items-center ${!isVisible ? 'opacity-0 transition ease-in-out delay-100 hover:opacity-100 duration-150' : ''}`} ref={refElement}>
         <div className='w-12 mx-auto'>
           {
             value === null
               ? (
                   turn === 0
-                    ? (<CloseFill />)
-                    : (<Circlefill />)
+                    ? (<Close fill="transparent" stroke="#31C3BD" />)
+                    : (<Circle fill="transparent" stroke="#F2B137" />)
                 )
               : (
-                  value === 0 ? (<Close />) : (<Circle />)
+                  value === 0 ? (<Close fill="#31C3BD" />) : (<Circle fill="#F2B137" />)
                 )
           }
         </div>
