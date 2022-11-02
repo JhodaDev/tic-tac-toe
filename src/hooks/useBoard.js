@@ -37,26 +37,7 @@ export const useBoard = ({ rows, cols }) => {
           cpuMode()
         }
       }
-    } else if (mode === 'hard') {
-      // estudiar la mejor jugada para el cpu
-      const bestMove = minimax(board.board, player.turn)
     }
-  }
-
-  const minimax = (board, player) => {
-    const availableSpots = emptyIndexies(board)
-  }
-
-  const emptyIndexies = (board) => {
-    return board.reduce((acc, row, i) => {
-      row.forEach((cell, j) => {
-        if (cell === null) {
-          acc.push([i, j])
-        }
-      })
-
-      return acc
-    }, [])
   }
 
   useEffect(() => {

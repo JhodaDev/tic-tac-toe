@@ -10,8 +10,8 @@ const initialState = {
   winner: false,
   rounds: 0,
   isCpu: {
-    cpu: true,
-    mode: 'hard'
+    cpu: false,
+    mode: 'easy'
   }
 }
 
