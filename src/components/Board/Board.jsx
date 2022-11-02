@@ -6,7 +6,7 @@ import { Results } from './Results'
 
 export const Board = ({ rows, cols }) => {
   const { player, board } = useSelector(state => state)
-  const [changeCell] = useBoard({ rows, cols })
+  const [changeCell, valueCpu] = useBoard({ rows, cols })
 
   return (
     <>
@@ -14,7 +14,7 @@ export const Board = ({ rows, cols }) => {
         {board.board.map((row, rowIndex) => {
           return row.map((col, colIndex) => {
             return (
-              <Cell key={`${rowIndex}-${colIndex}`} update={changeCell} round={player.rounds} turn={player.turn} value={col} coordinates={{ x: rowIndex, y: colIndex }} />
+              <Cell key={`${rowIndex}-${colIndex}`} valueCpu={valueCpu} player={player} update={changeCell} value={col} coordinates={{ x: rowIndex, y: colIndex }} />
             )
           })
         }

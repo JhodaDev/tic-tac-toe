@@ -1,13 +1,19 @@
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Option } from '../components/Home/Option'
 import { Circle } from '../components/Icons/Circle'
 import { Close } from '../components/Icons/Close'
-import { changeTurn } from '../redux/slices/playerSlice'
+import { changeMode, changeTurn } from '../redux/slices/playerSlice'
 
 export const Home = () => {
   const dispatch = useDispatch()
   const handleChangePlayer = () => dispatch(changeTurn())
+  const navigate = useNavigate()
+
+  const handleChangeMode = () => {
+    dispatch(changeMode({ cpu: true, mode: 'hard' }))
+    navigate('/start')
+  }
 
   return (
         <div className="h-screen bg-body flex justify-center items-center">
@@ -28,7 +34,7 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className='flex flex-col w-full mt-7'>
-                    <button className='bg-yellow font-medium mb-3 py-3 rounded-lg'>NEW GAME (VS CPU)</button>
+                    <button className='bg-yellow font-medium mb-3 py-3 rounded-lg' onClick={handleChangeMode}>NEW GAME (VS CPU)</button>
                     <Link to="/start" className='bg-blue font-medium mb-3 py-3 rounded-lg text-center'>NEW GAME (VS PLAYER)</Link>
                 </div>
             </div>

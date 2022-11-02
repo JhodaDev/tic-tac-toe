@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { Circle } from '../Icons/Circle'
 import { Close } from '../Icons/Close'
 
-export const Cell = ({ turn, coordinates, update, value, round }) => {
+export const Cell = ({ coordinates, update, value, player, valueCpu }) => {
   const [isVisible, setIsVisible] = useState(false)
 
   const refElement = useRef(null)
@@ -14,8 +14,14 @@ export const Cell = ({ turn, coordinates, update, value, round }) => {
   }
 
   useEffect(() => {
+    if (valueCpu?.x === coordinates.x && valueCpu?.y === coordinates.y) {
+      setIsVisible(true)
+    }
+  }, [valueCpu])
+
+  useEffect(() => {
     setIsVisible(false)
-  }, [round])
+  }, [player.rounds])
 
   return (
     <div className='w-24 h-24 md:w-36 md:h-36 bg-cells rounded-lg shadow-lg cursor-pointer' onClick={handleClick}>
@@ -24,7 +30,7 @@ export const Cell = ({ turn, coordinates, update, value, round }) => {
           {
             value === null
               ? (
-                  turn === 0
+                  player.turn === 0
                     ? (<Close fill="transparent" stroke="#31C3BD" />)
                     : (<Circle fill="transparent" stroke="#F2B137" />)
                 )
