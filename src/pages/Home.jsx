@@ -11,7 +11,7 @@ export const Home = () => {
   const navigate = useNavigate()
 
   const handleChangeMode = () => {
-    dispatch(changeMode({ cpu: true, mode: 'hard' }))
+    dispatch(changeMode({ cpu: true, mode: 'easy' }))
     navigate('/start')
   }
 
