@@ -11,7 +11,7 @@ Tic tac toe is a game of two players, X and O, taking turns placing their respec
 2. install the dependencies - npm install 
 3. run the game - npm run dev
 
-or you can find the game at the following link: https://jhoda-code.vercel.app
+or you can find the game at the following link: https://tic-tac-toe-gamma-ten.vercel.app
 
 
 The design of this game is thanks to Frontend Mentor, you can find the original design in the following link: https://www.frontendmentor.io/challenges/tic-tac-toe-game-Re7ZF_E2v
