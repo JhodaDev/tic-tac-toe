@@ -15,6 +15,7 @@ export const Cell = ({ coordinates, update, value, player, valueCpu }) => {
 
   useEffect(() => {
     if (valueCpu?.x === coordinates.x && valueCpu?.y === coordinates.y) {
+      console.log('entro')
       setIsVisible(true)
     }
   }, [valueCpu])

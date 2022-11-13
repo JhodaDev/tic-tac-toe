@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateCell } from '../redux/slices/boardSlice'
 import { changeTurn } from '../redux/slices/playerSlice'
-// import { useChangeTurn } from './useChangeTurn'
 import { useValidateWinner } from './useValidateWinner'
 
 export const useBoard = ({ rows, cols }) => {
@@ -11,13 +10,12 @@ export const useBoard = ({ rows, cols }) => {
 
   const [countTurn, setCountTurn] = useState(0)
 
-  const [checkWinner] = useValidateWinner(board.board, rows, cols)
+  const [checkWinner] = useValidateWinner(rows, cols, setCountTurn)
   const [valueCpu, setValueCpu] = useState(null)
 
   const changeCell = (row, col) => {
     setCountTurn(countTurn + 1)
     dispatch(updateCell({ row, col, value: player.turn }))
-    dispatch(changeTurn())
   }
 
   const cpuMode = () => {
@@ -26,9 +24,8 @@ export const useBoard = ({ rows, cols }) => {
       const row = Math.floor(Math.random() * rows)
       const col = Math.floor(Math.random() * cols)
 
-      if (!board.board.every(row => row.every(cell => cell !== null))) {
+      if (!board.board.every((row) => row.every((cell) => cell !== null))) {
         if (board.board[row][col] === null) {
-          // esperar 1 segundo para que el usuario vea la jugada del cpu
           setTimeout(() => {
             changeCell(row, col)
             setValueCpu({ x: row, y: col })
@@ -41,12 +38,18 @@ export const useBoard = ({ rows, cols }) => {
   }
 
   useEffect(() => {
-    if (player.isCpu.cpu && player.turn === 1) cpuMode()
-  }, [player.turn])
+    if (!player.winner) dispatch(changeTurn())
+  }, [countTurn, player.winner])
 
   useEffect(() => {
-    if (countTurn > 4) checkWinner()
-  }, [countTurn])
+    if (player.isCpu.cpu && player.turn === 1 && !player.winner) cpuMode()
+  }, [player.turn, player.winner])
+
+  useEffect(() => {
+    if (!player.winner) {
+      if (countTurn > 4) checkWinner()
+    }
+  }, [countTurn, player.winner])
 
   return [changeCell, valueCpu]
 }

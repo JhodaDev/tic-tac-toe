@@ -37,6 +37,9 @@ export const playerSlice = createSlice({
       state.gamesWon.tie = 0
       state.rounds = 0
     },
+    resetWinner: (state) => {
+      state.winner = false
+    },
     changeMode: (state, action) => {
       state.isCpu.cpu = action.payload.cpu
       state.isCpu.mode = action.payload.mode
@@ -44,7 +47,7 @@ export const playerSlice = createSlice({
   }
 })
 
-export const { changeTurn, addWin, reset, resetAllPlayer, changeMode } =
+export const { changeTurn, addWin, reset, resetAllPlayer, changeMode, resetWinner } =
   playerSlice.actions
 
 export default playerSlice.reducer
