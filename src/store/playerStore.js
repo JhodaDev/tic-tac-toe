@@ -26,6 +26,28 @@ export default function (set) {
           winner
         }
       }))
+    },
+    setOnlyWinner: (winner) => {
+      set((state) => ({
+        player: {
+          ...state.player,
+          winner
+        }
+      }))
+    },
+    resetGame: () => {
+      set(() => ({
+        player: {
+          currentPlayer: 'X',
+          winner: null,
+          winners: {
+            X: 0,
+            O: 0,
+            tie: 0
+
+          }
+        }
+      }))
     }
   })
 }

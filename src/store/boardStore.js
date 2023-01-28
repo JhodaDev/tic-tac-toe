@@ -17,6 +17,14 @@ export default function (set) {
           mode
         }
       }))
+    },
+    resetGame: () => {
+      set(() => ({
+        board: {
+          board: Array(9).fill(null),
+          mode: 'player'
+        }
+      }))
     }
   })
 }
