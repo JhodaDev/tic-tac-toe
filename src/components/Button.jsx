@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import PropTypes from 'prop-types'
 
 const typeButtons = {
@@ -6,11 +7,11 @@ const typeButtons = {
   gray: 'bg-silver shadow-gray hover:bg-silver-hover'
 }
 
-export const Button = ({ children, type, onClick }) => {
+export const Button = ({ children, type, onClick, ...rest }) => {
   return (
-    <button className={`w-full py-4 rounded-xl transition-colors text-dark-navy font-bold ${typeButtons[type]}`} onClick={onClick}>
+    <motion.button {...rest} className={`w-full py-4 rounded-xl transition-colors text-dark-navy font-bold ${typeButtons[type]}`} onClick={onClick}>
       {children}
-    </button>
+    </motion.button>
   )
 }
 
