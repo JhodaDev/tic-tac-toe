@@ -9,7 +9,7 @@ export const Cell = ({ row, index }) => {
   const { player, board } = useStore(state => state)
 
   const getIcon = () => {
-    if (!row) {
+    if (!row || row === '') {
       return player.currentPlayer === 'X' ? <IconXOutline /> : <IconOOutline />
     }
 
@@ -27,8 +27,8 @@ export const Cell = ({ row, index }) => {
   }
 
   return (
-        <div className='w-full rounded-lg shadow-cell h-[95px] xl:h-[140px] flex justify-center items-center bg-semi-dark-navy cursor-pointer' onClick={handleChangeTurn}>
-            <div className={`w-12 mx-auto transition-all ${!row ? 'opacity-0 hover:opacity-100' : row === 'X' ? 'text-light-blue' : 'text-light-yellow'}`}>
+        <div className='w-full rounded-lg shadow-cell h-[95px] lg:h-[140px] flex justify-center items-center bg-semi-dark-navy cursor-pointer' onClick={handleChangeTurn}>
+            <div className={`w-12 lg:w-16 mx-auto transition-all ${!row ? 'opacity-0 hover:opacity-100' : row === 'X' ? 'text-light-blue' : 'text-light-yellow'}`}>
                 {getIcon()}
             </div>
         </div>
