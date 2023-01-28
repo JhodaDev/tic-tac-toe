@@ -14,7 +14,7 @@ export const Header = () => {
   }
 
   return (
-        <motion.div animate={{ y: [-250, 0], opacity: [0, 1] }} transition={{ duration: 1, ease: 'easeInOut' }} className='max-w-xs mx-auto xl:max-w-md h-16 w-full'>
+        <motion.div animate={{ y: [-250, 0], opacity: [0, 1] }} transition={{ duration: 1, ease: 'easeInOut' }} className='max-w-xs mx-auto lg:max-w-md h-16 w-full'>
             <div className='flex justify-between items-center'>
                 <div className='w-16'>
                     <img src='/images/logo.svg' />

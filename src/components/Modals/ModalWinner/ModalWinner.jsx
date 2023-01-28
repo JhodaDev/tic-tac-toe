@@ -1,6 +1,6 @@
-import React from 'react'
+import { motion } from 'framer-motion'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toggleModal } from '../../../helpers/showModal'
 import { useStore } from '../../../store/store'
 import { Button } from '../../Button'
 import { IconO } from '../../Icons/IconO'
@@ -14,6 +14,21 @@ const classesModal = {
 }
 
 export const ModalWinner = () => {
+  const [animate, setAnimate] = useState({
+    container: {
+      animate: {
+        height: ['0vh', '100vh']
+      },
+      transition: { duration: 0.5, ease: 'easeInOut' }
+    },
+    modal: {
+      animate: {
+        opacity: [0, 1]
+      },
+      transition: { delay: 0.2, duration: 1, ease: 'easeInOut' }
+    },
+    endFunc: () => { }
+  })
   const { board, player } = useStore(state => state)
   const navigate = useNavigate()
 
@@ -21,14 +36,28 @@ export const ModalWinner = () => {
     const newBoard = Array(9).fill('')
     board.setBoard(newBoard)
     player.setPlayer('X')
-    toggleModal('#modal-winner')
+    setAnimate({
+      container: {
+        animate: {
+          height: ['100vh', '0vh']
+        },
+        transition: { duration: 0.5, ease: 'easeInOut', delay: 0.5 }
+      },
+      modal: {
+        animate: {
+          opacity: [1, 0]
+        },
+        transition: { duration: 0.5, ease: 'easeInOut' }
+      },
+      endFunc: () => player.setOnlyWinner(null)
+    })
   }
 
   const handleQuit = () => navigate('/')
 
   return (
-        <Modal id='modal-winner'>
-            <div className='relative bg-semi-dark-navy w-full z-50 text-center py-8'>
+        <Modal onAnimationComplete={animate.endFunc} initial={{ top: '50%', left: 0, width: '100%', translateY: '-50%', height: 0 }} animate={animate.container.animate} transition={animate.container.transition} id='modal-winner'>
+            <motion.div animate={animate.modal.animate} transition={animate.modal.transition} className='relative bg-semi-dark-navy w-full z-50 text-center py-8'>
                 <div className='max-w-xs mx-auto'>
                     {
                         player.winner !== 'tie' && (
@@ -55,7 +84,7 @@ export const ModalWinner = () => {
                         <Button type={`${player.winner === 'O' ? 'primary' : 'secondary'}`} onClick={handleNextRound}>NEXT ROUND</Button>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </Modal>
   )
 }
